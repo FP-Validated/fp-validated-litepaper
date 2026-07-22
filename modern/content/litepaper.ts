@@ -188,22 +188,22 @@ export const teamGroups = [
 const logo = (name: string) => `/img/${name}`;
 
 export const validatorNetworks = [
+  ["logo-canton.png", "Canton", "Splice", "Splice"],
   ["logo-ethereum.png", "Ethereum", "mainnet", "메인넷"],
   ["logo-ethereum.png", "Ethereum", "testnet", "테스트넷"],
-  ["logo-solana.png", "Solana", "testnet", "테스트넷"],
-  ["logo-canton.png", "Canton", "Splice", "Splice"],
-  ["logo-sui.png", "Sui", "mainnet", "메인넷"],
-  ["logo-sui.png", "Sui", "testnet", "테스트넷"],
-  ["logo-stable.png", "Stable", "mainnet", "메인넷"],
-  ["logo-stable.png", "Stable", "testnet", "테스트넷"],
-  ["logo-sei.png", "Sei", "mainnet", "메인넷"],
-  ["logo-layerzero.jpg", "LayerZero", "DVN · mainnet", "DVN · 메인넷"],
-  ["logo-walrus.png", "Walrus", "mainnet", "메인넷"],
-  ["logo-walrus.png", "Walrus", "testnet", "테스트넷"],
   ["logo-initia.png", "Initia", "mainnet", "메인넷"],
   ["logo-initia.png", "Initia", "testnet", "테스트넷"],
+  ["logo-layerzero.jpg", "LayerZero", "DVN · mainnet", "DVN · 메인넷"],
+  ["logo-optimum.png", "Optimum", "testnet", "테스트넷"],
+  ["logo-sei.png", "Sei", "mainnet", "메인넷"],
+  ["logo-solana.png", "Solana", "testnet", "테스트넷"],
   ["logo-ssv.png", "SSV", "mainnet", "메인넷"],
-  ["logo-optimum.png", "Optimum", "testnet", "테스트넷"]
+  ["logo-stable.png", "Stable", "mainnet", "메인넷"],
+  ["logo-stable.png", "Stable", "testnet", "테스트넷"],
+  ["logo-sui.png", "Sui", "mainnet", "메인넷"],
+  ["logo-sui.png", "Sui", "testnet", "테스트넷"],
+  ["logo-walrus.png", "Walrus", "mainnet", "메인넷"],
+  ["logo-walrus.png", "Walrus", "testnet", "테스트넷"]
 ].map(([icon, name, en, ko]) => ({ icon: logo(icon), name, label: { en, ko } }));
 
 export const rpcNetworks = [
