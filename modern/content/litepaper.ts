@@ -201,7 +201,9 @@ export const validatorNetworks = [
   ["logo-walrus.png", "Walrus", "mainnet", "메인넷"],
   ["logo-walrus.png", "Walrus", "testnet", "테스트넷"],
   ["logo-initia.png", "Initia", "mainnet", "메인넷"],
-  ["logo-initia.png", "Initia", "testnet", "테스트넷"]
+  ["logo-initia.png", "Initia", "testnet", "테스트넷"],
+  ["logo-ssv.png", "SSV", "mainnet", "메인넷"],
+  ["logo-optimum.png", "Optimum", "testnet", "테스트넷"]
 ].map(([icon, name, en, ko]) => ({ icon: logo(icon), name, label: { en, ko } }));
 
 export const rpcNetworks = [

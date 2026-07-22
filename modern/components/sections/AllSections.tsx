@@ -129,7 +129,7 @@ export function AllSections({ lang }: { lang: Lang }) {
             <Reveal delay={1}><h2 className="sechead">{sectionCopy.networks.title[lang]}</h2></Reveal>
             <Reveal delay={2}><p className="lede">{sectionCopy.networks.body[lang]}</p></Reveal>
             <div className="nets">
-              <Reveal delay={1}><div className="netcol"><div className="k">{lang === "ko" ? "밸리데이터 · 14개 네트워크" : "Validators · 14 networks"}</div><div className="chips">{validatorNetworks.map((item) => <Chip icon={item.icon} key={`${item.name}-${item.label.en}`} label={item.label} lang={lang} name={item.name} />)}</div></div></Reveal>
+              <Reveal delay={1}><div className="netcol"><div className="k">{lang === "ko" ? "밸리데이터 · 16개 네트워크" : "Validators · 16 networks"}</div><div className="chips">{validatorNetworks.map((item) => <Chip icon={item.icon} key={`${item.name}-${item.label.en}`} label={item.label} lang={lang} name={item.name} />)}</div></div></Reveal>
               <Reveal delay={2}><div className="netcol"><div className="k">{lang === "ko" ? "RPC · 10개 메인넷 엔드포인트" : "RPC · 10 mainnet endpoints"}</div><div className="chips">{rpcNetworks.map((item) => <Chip icon={item.icon} key={item.name} lang={lang} name={item.name} />)}</div><div className="k" style={{ marginTop: 16 }}>{lang === "ko" ? "추가 예정" : "More to come"}</div></div></Reveal>
             </div>
           </div>
