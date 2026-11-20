@@ -53,7 +53,7 @@ html[lang="ko"] .label { letter-spacing: .22em; }
   justify-content: flex-end;
   left: var(--nav);
   letter-spacing: .28em;
-  padding: 0 26px;
+  padding: 0 148px 0 26px;
   position: fixed;
   right: 0;
   text-transform: uppercase;
@@ -66,7 +66,7 @@ html[lang="ko"] .label { letter-spacing: .22em; }
   background: rgba(8,8,9,.78);
   border: 1px solid var(--line2);
   border-radius: 999px;
-  display: none;
+  display: flex;
   overflow: hidden;
   position: fixed;
   right: 18px;
@@ -204,7 +204,19 @@ html[lang="ko"] .netcol .k, html[lang="ko"] .pillar .big { letter-spacing: .06em
 .chip { align-items: center; background: #070707; border: 1px solid var(--line2); border-radius: 999px; color: var(--ink); display: inline-flex; font-size: 13px; gap: 8px; padding: 6px 15px 6px 6px; }
 .chip small { color: var(--mut2); }
 .chip .cl { background: #fff; border-radius: 50%; flex: none; height: 21px; object-fit: cover; width: 21px; }
-.metrics .chip { justify-content: center; padding: 6px 15px; }
+.source-link { display: inline-block; margin-top: 24px; text-decoration: underline; text-underline-offset: .25em; }
+.closing { border-top: 1px solid var(--line); margin-top: 48px; padding-top: 28px; }
+
+.message-trace { display: grid; grid-template-columns: repeat(5, 1fr); margin: 50px 0 0; }
+.message-trace li { border-top: 1px solid var(--line2); padding: 18px 12px 16px 0; position: relative; }
+.message-trace li span { color: var(--mut2); display: block; font-size: 11px; letter-spacing: .18em; margin-bottom: 8px; }
+.message-trace li::before { background: var(--ink); content: ""; height: 2px; inset: -1px 0 auto; position: absolute; transform: scaleX(0); transform-origin: left; }
+.rv.in .message-trace li::before { animation: trace-step .24s ease-out forwards; }
+.rv.in .message-trace li:nth-child(2)::before { animation-delay: .24s; }
+.rv.in .message-trace li:nth-child(3)::before { animation-delay: .48s; }
+.rv.in .message-trace li:nth-child(4)::before { animation-delay: .72s; }
+.rv.in .message-trace li:nth-child(5)::before { animation-delay: .96s; }
+@keyframes trace-step { to { transform: scaleX(1); } }
 
 .dia { background: linear-gradient(180deg,#070708,#040404); border: 1px solid var(--line); border-radius: 5px; margin-top: 50px; padding: 34px 30px; }
 .dia svg { display: block; height: auto; width: 100%; }
@@ -289,4 +301,17 @@ html[lang="ko"] .gallabel { letter-spacing: .08em; }
   .slide { flex: 0 0 88%; }
   .dia { padding: 18px 14px; }
   .tm { gap: 6px; grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .message-trace { grid-template-columns: 1fr; }
+  .message-trace li { align-items: baseline; display: flex; gap: 18px; }
+  .message-trace li span { margin: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rv { filter: none; opacity: 1; transform: none; transition: none; }
+  .marquee .track, .rv.in .message-trace li::before { animation: none; }
+  .message-trace li::before { transform: none; }
 }

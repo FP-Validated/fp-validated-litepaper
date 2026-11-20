@@ -8,7 +8,6 @@ import {
   galleryItems,
   hero,
   marquee,
-  metrics,
   pillars,
   roadmap,
   rows,
@@ -26,7 +25,7 @@ import { LocalizedHtml } from "../ui/LocalizedHtml";
 import { Reveal } from "../ui/Reveal";
 import { RowList, type RowItem } from "../ui/RowList";
 import { StatGrid } from "../ui/StatGrid";
-import { ArchitectureDiagram, FootprintDiagram, ObservabilityDiagram, SecurityDiagram } from "./DiagramSvgs";
+import { FootprintDiagram } from "./DiagramSvgs";
 
 function SectionLabel({ index, label, lang }: { index: string; label: Localized; lang: Lang }) {
   return <div className="label seclabel">{index} — {label[lang]}</div>;
@@ -150,25 +149,44 @@ export function AllSections({ lang }: { lang: Lang }) {
           </div>
         </section>
 
-        <DiagramSection id="architecture" index={meta.architecture.index} label={meta.architecture.label} lang={lang} title={sectionCopy.architecture.title} body={sectionCopy.architecture.body} caption={sectionCopy.architecture.caption}><ArchitectureDiagram /></DiagramSection>
+        <section id="architecture">
+          <div className="wrap">
+            <Reveal><SectionLabel index={meta.architecture.index} label={meta.architecture.label} lang={lang} /></Reveal>
+            <Reveal delay={1}><h2 className="sechead">{sectionCopy.architecture.title[lang]}</h2></Reveal>
+            <Reveal delay={2}><p className="lede">{sectionCopy.architecture.body[lang]}</p></Reveal>
+            <div className="pillars">
+              {sectionCopy.architecture.roles.map((role, index) => (
+                <Reveal key={role.label.en} delay={index === 0 ? 1 : 2}>
+                  <div className="pillar"><div className="k">{role.label[lang]}</div><h3>{role.title[lang]}</h3><p>{role.body[lang]}</p></div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
         <section id="security">
           <div className="wrap">
             <Reveal><SectionLabel index={meta.security.index} label={meta.security.label} lang={lang} /></Reveal>
             <Reveal delay={1}><h2 className="sechead">{sectionCopy.security.title[lang]}</h2></Reveal>
             <Reveal delay={2}><p className="lede">{sectionCopy.security.body[lang]}</p></Reveal>
-            <Reveal delay={1}><div className="dia"><SecurityDiagram /></div></Reveal>
-            <Reveal><div className="dcap">{sectionCopy.security.caption[lang]}</div></Reveal>
             <RowList lang={lang} rows={toRows(rows.security)} />
+            <Reveal><a className="source-link" href="https://github.com/FP-Validated/pillar-client">{lang === "ko" ? "Pillar 서명 클라이언트 소스 보기" : "Read the Pillar signing client source"} ↗</a></Reveal>
           </div>
         </section>
         <section id="observability">
           <div className="wrap">
             <Reveal><SectionLabel index={meta.observability.index} label={meta.observability.label} lang={lang} /></Reveal>
-            <Reveal delay={1}><LocalizedHtml as="h2" className="sechead" lang={lang} value={sectionCopy.observability.title} /></Reveal>
+            <Reveal delay={1}><h2 className="sechead">{sectionCopy.observability.title[lang]}</h2></Reveal>
             <Reveal delay={2}><p className="lede">{sectionCopy.observability.body[lang]}</p></Reveal>
-            <Reveal delay={1}><div className="dia"><ObservabilityDiagram /></div></Reveal>
-            <Reveal><div className="dcap">{sectionCopy.observability.caption[lang]}</div></Reveal>
-            <Reveal><div className="chips metrics" style={{ marginTop: 40 }}>{metrics.map((item) => <Chip key={item.en} label={item} lang={lang} />)}</div></Reveal>
+            <Reveal delay={1}>
+              <figure>
+                <ol className="message-trace">
+                  {sectionCopy.observability.stages.map((stage, index) => (
+                    <li key={stage.en}><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>{stage[lang]}</li>
+                  ))}
+                </ol>
+                <figcaption className="dcap">{sectionCopy.observability.caption[lang]}</figcaption>
+              </figure>
+            </Reveal>
           </div>
         </section>
         <section id="operations">
@@ -211,42 +229,11 @@ export function AllSections({ lang }: { lang: Lang }) {
                 </Reveal>
               ))}
             </div>
+            <Reveal><p className="lede closing">{sectionCopy.roadmap.closing[lang]}</p></Reveal>
           </div>
         </section>
       </main>
     </>
-  );
-}
-
-function DiagramSection({
-  id,
-  index,
-  label,
-  lang,
-  title,
-  body,
-  caption,
-  children
-}: {
-  id: string;
-  index: string;
-  label: Localized;
-  lang: Lang;
-  title: Localized;
-  body: Localized;
-  caption: Localized;
-  children: React.ReactNode;
-}) {
-  return (
-    <section id={id}>
-      <div className="wrap">
-        <Reveal><SectionLabel index={index} label={label} lang={lang} /></Reveal>
-        <Reveal delay={1}><h2 className="sechead">{title[lang]}</h2></Reveal>
-        <Reveal delay={2}><p className="lede">{body[lang]}</p></Reveal>
-        <Reveal delay={1}><div className="dia">{children}</div></Reveal>
-        <Reveal><div className="dcap">{caption[lang]}</div></Reveal>
-      </div>
-    </section>
   );
 }
 
