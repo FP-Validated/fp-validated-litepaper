@@ -63,7 +63,7 @@ export const hero = {
     { key: { en: "Model", ko: "모델" }, value: { en: "Validator · RPC", ko: "밸리데이터 · RPC" } },
     { key: { en: "Footprint", ko: "운영 범위" }, value: { en: "5 providers", ko: "5개 프로바이더" } },
     { key: { en: "Posture", ko: "기준" }, value: { en: "SOC 2 / ISO 27001", ko: "SOC 2 / ISO 27001" } },
-    { key: { en: "Version", ko: "버전" }, value: { en: "2026.6", ko: "2026.6" } }
+    { key: { en: "Engineering update", ko: "기술 업데이트" }, value: { en: "November 2026", ko: "2026년 11월" } }
   ],
   stats: [
     { value: "1", label: { en: "Rule above all — stop before restarting any active signer", ko: "최우선 원칙 — 활성 서명자를 재시작하기 전에 멈춘다" } },
@@ -109,23 +109,32 @@ export const sectionCopy = {
     body: { en: "Delegating stake means handing over <b>signing authority and slashing risk</b>. Most failures can be recovered from; double-signing or key compromise cannot. Our entire operator architecture is built around one principle: <b>safety before availability</b>.", ko: "스테이크를 위임한다는 것은 <b>서명 권한과 슬래싱 리스크</b>를 넘기는 일입니다. 대부분의 장애는 복구할 수 있지만, 이중 서명이나 키 유출은 그렇지 않습니다. 우리의 전체 오퍼레이터 아키텍처는 단 하나의 원칙 — <b>가용성보다 안전</b> — 을 중심으로 구축되었습니다." }
   },
   architecture: {
-    title: { en: "One Clean Seam", ko: "하나의 깔끔한 경계" },
-    body: { en: "An Azure-managed control plane governs an external multi-provider workload cluster using diff-only sync with pruning disabled. Across the boundary, only two flows are permitted — and nothing else.", ko: "Azure 관리형 제어 평면이 외부 멀티 프로바이더 워크로드 클러스터를 diff 전용 동기화와 prune 비활성화로 통제합니다. 경계를 넘는 흐름은 단 두 가지만 허용되며, 그 외에는 없습니다." },
-    caption: { en: "Management never runs chain workloads. The workload plane never holds the keys to its own kingdom.", ko: "관리 평면은 체인 워크로드를 실행하지 않고, 워크로드 평면은 자신의 왕국의 열쇠를 쥐지 않습니다." }
+    title: { en: "Who Controls the Assets?", ko: "자산을 움직일 수 있는 사람은 누구인가" },
+    body: { en: "In our white-label validator design, an institution delegates the work of running a node, not the right to move its funds. The two responsibilities use different keys.", ko: "화이트라벨 밸리데이터 설계에서 기관이 맡기는 것은 노드 운영이지, 자산을 옮길 권한이 아닙니다. 두 역할은 서로 다른 키를 씁니다." },
+    roles: [
+      { label: { en: "Institution or custodian", ko: "기관 또는 수탁사" }, title: { en: "Hold the assets", ko: "자산을 보관합니다" }, body: { en: "The custody key stays with the institution or its custodian. The chain pays rewards directly to the institution’s address, not through an FP account.", ko: "자산 보관 키는 기관이나 수탁사가 보유합니다. 체인에서 발생한 보상은 FP 계정을 거치지 않고 기관 주소로 들어갑니다." } },
+      { label: { en: "FP Validated", ko: "FP Validated" }, title: { en: "Run the validator", ko: "검증인을 운영합니다" }, body: { en: "Each customer has a separate signing environment. Its validator key signs consensus messages; it cannot withdraw the customer’s funds. FP monitors the node and reports incidents and changes.", ko: "고객마다 서명 환경을 분리합니다. 검증인 키는 합의 메시지에 서명할 수 있지만 고객 자산을 인출할 수는 없습니다. FP는 노드 상태를 살피고 장애와 변경 사항을 보고합니다." } }
+    ]
   },
   security: {
-    title: { en: "Safety First", ko: "안전이 먼저" },
-    body: { en: "Signing keys are secured in cloud KMS/HSM, sealed by HashiCorp Vault, and accessed exclusively through a Kubernetes-native key management layer with short-lived workload identities. The raw key material is never written to a pod or committed to a Git repository.", ko: "서명 키는 클라우드 KMS/HSM에서 보호되고 HashiCorp Vault로 봉인되며, 단기 워크로드 아이덴티티를 사용하는 쿠버네티스 네이티브 키 관리 계층을 통해서만 접근됩니다. 원본 키 자료는 Pod에 기록되거나 Git 저장소에 커밋되지 않습니다." },
-    caption: { en: "Layered key management — cloud KMS / HSM sealed by Vault, reached only through short-lived workload identity — no single node, and no single layer, ever holds a usable key.", ko: "계층화된 키 관리 — Vault로 봉인된 클라우드 KMS/HSM를 단기 워크로드 아이덴티티로만 접근합니다 — 어떤 단일 노드도, 어떤 단일 계층도 사용 가능한 키를 갖지 않습니다." }
+    title: { en: "When Should Pillar Sign?", ko: "Pillar는 언제 서명하는가" },
+    body: { en: "A validator signs for one chain. A LayerZero Decentralized Verifier Network (DVN) attests to a message sent between two. As of November 2026, our Rust client serves signing requests for 33 mainnet chains across eight chain families. Follow one request from Ethereum to Arbitrum.", ko: "밸리데이터가 한 체인의 합의에 서명한다면, LayerZero 분산 검증 네트워크(DVN)는 두 체인 사이에서 보낸 메시지를 확인하고 서명합니다. 2026년 11월 기준, 우리가 만든 Rust 클라이언트는 8개 계열에 걸친 메인넷 33개 체인의 서명 요청을 처리합니다. 이더리움에서 아비트럼으로 가는 요청 한 건을 따라가 보겠습니다." }
   },
   observability: {
-    title: { en: "Raw at the Edge,<br>Summary at the Center", ko: "원시는 엣지에,<br>요약은 중앙에" },
-    body: { en: "High-cardinality detailed data remains close to the workload, while only low-cardinality fp:* summary data is sent to the central layer. This keeps costs low and is designed to support compliance evidence.", ko: "고카디널리티 상세 데이터는 워크로드 가까이에 유지되고, 저카디널리티 fp:* 요약 데이터만 중앙 계층으로 전송됩니다. 이는 비용을 낮게 유지하며 컴플라이언스 증거를 지원하도록 설계되었습니다." },
-    caption: { en: "Alerts are evaluated by PrometheusRule → Alertmanager. Grafana visualises only; the Guard explains and humans approve dangerous actions.", ko: "알림은 PrometheusRule → Alertmanager가 평가합니다. Grafana는 시각화 전용이며, Guard는 설명하고 사람은 위험한 조치를 승인합니다." }
+    title: { en: "Did the Message Arrive?", ko: "메시지가 도착했는가" },
+    body: { en: "A signature is not a delivery receipt. On testnet, our observer sends a message without moving tokens and checks what the destination app actually received. It follows 16 directional routes: eight out from a hub and eight back.", ko: "서명은 도착 확인증이 아닙니다. 테스트넷에서 우리가 만든 옵저버는 토큰을 옮기지 않고 시험 메시지를 보낸 뒤 목적지 앱이 실제로 받았는지 확인합니다. 허브에서 나가는 여덟 경로와 돌아오는 여덟 경로를 따로 관찰합니다." },
+    stages: [
+      { en: "Dispatched", ko: "출발지 발송" },
+      { en: "Signed", ko: "DVN 서명" },
+      { en: "Verified", ko: "목적지 검증" },
+      { en: "Committed", ko: "메시지 확정" },
+      { en: "Executed", ko: "앱 실행" }
+    ],
+    caption: { en: "If a signature exists but destination verification is missing, check submission. If verification is recorded but the app has not received the message, check execution.", ko: "서명이 있는데 목적지 검증 기록이 없다면 제출 구간을 봅니다. 검증까지 기록됐는데 앱의 수신 기록이 없다면 실행 구간을 봅니다." }
   },
   operations: {
     title: { en: "Explainable & Reversible", ko: "설명 가능 & 되돌릴 수 있음" },
-    body: { en: "Every change is assessed based on its blast radius. The workload cluster operates in diff-only mode with pruning turned off, so any drift is reviewed explicitly instead of being automatically reconciled.", ko: "모든 변경은 영향 범위를 기준으로 평가됩니다. 워크로드 클러스터는 pruning을 끈 diff-only 모드로 운영되므로, 모든 드리프트는 자동으로 조정되지 않고 명시적으로 검토됩니다." }
+    body: { en: "On 17 November we upgraded the Stable mainnet validator to v1.9.1. Checking the running binary established which release was live. Checking that consensus signing had resumed established that the validator was doing its job again.", ko: "11월 17일 Stable 메인넷 밸리데이터를 v1.9.1로 올렸습니다. 실행 중인 바이너리의 버전을 확인해 새 릴리스가 반영됐는지 판단했습니다. 업그레이드의 완료 기준은 한 단계 더 있었습니다. 검증인이 합의 서명을 다시 내는 것까지 확인했습니다." }
   },
   coverage: {
     title: { en: "Value We Secure", ko: "우리가 지키는 자산" },
@@ -137,7 +146,8 @@ export const sectionCopy = {
     body: { en: "Public explorers and dashboards across every network we operate", ko: "우리가 운영하는 모든 네트워크의 공개 익스플로러와 대시보드입니다." }
   },
   roadmap: {
-    title: { en: "What's Next", ko: "다음 단계" }
+    title: { en: "What's Next", ko: "다음 단계" },
+    closing: { en: "We started by operating validators. Today we also build the software that decides which chain record to trust, when to sign it, and how to check delivery. For the next network we bring online, recovery will mean more than a healthy node: the original request must work again.", ko: "우리는 밸리데이터를 운영하는 일에서 출발했습니다. 이제는 어떤 체인 기록을 믿을지, 언제 서명할지, 메시지가 도착했는지 확인하는 소프트웨어도 직접 만듭니다. 다음 네트워크에서도 복구의 기준은 같습니다. 노드가 다시 켜지는 데서 끝나지 않고, 그 노드에 맡겼던 요청이 다시 처리돼야 합니다." }
   }
 } as const;
 
@@ -233,10 +243,9 @@ export const pillars = [
 
 export const rows = {
   security: [
-    ["KMS / HSM-backed signing", "KMS / HSM 기반 서명", "The Raw Key Never Leaves The Vault", "원본 키는 노드를 떠나지 않습니다", "Validator signing keys are generated and held in cloud KMS / HSM. The signer calls KMS to produce signatures, while the key material is never exported to the node.", "밸리데이터 서명 키는 클라우드 KMS/HSM에 생성·보관됩니다. 서명자는 KMS를 호출해 서명을 생성하며, 키 자료는 노드로 내보내지지 않습니다."],
-    ["Vault-sealed, auto-unseal", "Vault 봉인 · 자동 언실", "Sealed, Not Stored", "저장이 아니라 봉인", "HashiCorp Vault seals every operational secret and auto-unseals against cloud KMS. Git holds references, never values; no long-lived credentials live in a pod.", "HashiCorp Vault가 모든 운영 시크릿을 봉인하고 클라우드 KMS로 자동 언실합니다. Git에는 참조만 있고 값은 없으며, Pod에 장기 자격증명은 없습니다."],
-    ["Threshold signing", "임계 서명", "No Single Machine Holds A Usable Key", "단일 머신은 사용 가능한 키를 갖지 않습니다", "Where supported by the network, validators sign through a threshold signer that distributes signing across independent nodes — double-sign resistant by design, and already live on Initia and Stable.", "네트워크가 지원하는 경우, 밸리데이터는 독립 노드들에 서명을 분산하는 임계 서명자로 서명합니다 — 설계상 이중 서명에 강하며, 이미 Initia와 Stable에서 라이브입니다."],
-    ["Kubernetes-native boundaries", "쿠버네티스 네이티브 경계", "Key Access Is Bounded & Audited", "키 접근은 제한·감사됩니다", "Active keys are kept out of Kubernetes Secrets. Access is bounded by Workload Identity and network policy, with every key use audited. Signer failover never runs automatically from an alert.", "활성 키는 Kubernetes Secrets 밖에 보관됩니다. 접근은 Workload Identity와 네트워크 정책으로 제한되며, 모든 키 사용은 감사됩니다. 서명자 페일오버는 알림에서 자동으로 실행되지 않습니다."]
+    ["Pillar RPC", "Pillar RPC", "Read the right block", "요청한 블록을 읽습니다", "The gateway selects a provider that can read the requested Ethereum block, not just the latest one. Two endpoints run by one provider count as one source, not two independent votes.", "게이트웨이는 최신 블록뿐 아니라 요청한 이더리움 블록을 읽을 수 있는 제공자를 고릅니다. 한 사업자가 운영하는 주소 두 곳의 답은 독립된 두 표가 아니라 한 표로 셉니다."],
+    ["Rust client", "Rust 클라이언트", "Match the message", "발송 기록과 대조합니다", "The client waits for the source block to reach the required confirmation depth. It checks that the dispatch event identifies the requested message and its destination before asking for signing permission.", "클라이언트는 발송 블록 뒤에 필요한 만큼 블록이 쌓이기를 기다립니다. 발송 이벤트의 내용과 목적지가 요청과 일치해야 서명 허가를 구합니다."],
+    ["Policy gate", "정책 게이트", "A valid message can still be refused", "맞는 메시지도 거절할 수 있습니다", "If the asset’s limit for this direction has been reached, the gate refuses a new signature without stopping unrelated routes. A stop cannot revoke a signature already issued.", "해당 자산이 이 방향에서 쓸 수 있는 한도를 다 채웠다면 새 서명을 내주지 않습니다. 관련 없는 경로는 계속 동작합니다. 이미 내준 서명은 정지 조치로 거둘 수 없습니다."]
   ],
   operations: [
     ["Tiered change classes", "계층형 변경 등급", "From Docs to Signer/Key", "문서부터 서명자/키까지", "Documentation, monitoring, management apps, workload policy, chain runtime, and signer/key changes each carry their own approval threshold and rollback path.", "문서, 모니터링, 관리 앱, 워크로드 정책, 체인 런타임, 서명자/키 변경은 각각 고유한 승인 임계값과 롤백 경로를 가집니다."],
@@ -245,15 +254,6 @@ export const rows = {
     ["Recovery order", "복구 순서", "Safety First, Always", "언제나 안전이 먼저", "Confirm there is no signer/key risk → freeze evidence → restore visibility → isolate the workload → proceed with controlled recovery. Backups are stored in zone-redundant storage.", "서명자/키 위험이 없음을 확인 → 증거 동결 → 가시성 복구 → 워크로드 격리 → 통제된 복구 진행. 백업은 영역 중복 스토리지에 저장됩니다."]
   ]
 } as const;
-
-export const metrics = [
-  { en: "block height & lag", ko: "블록 높이 · 지연" },
-  { en: "peer count", ko: "피어 수" },
-  { en: "sync status", ko: "동기화 상태" },
-  { en: "validator health", ko: "밸리데이터 상태" },
-  { en: "RPC latency", ko: "RPC 지연" },
-  { en: "error rate", ko: "에러율" }
-];
 
 export const tvl = {
   total: "$52,138,342",
